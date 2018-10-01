@@ -3,7 +3,7 @@
 class Node:
 
     #Constructor for new binary tree Node
-    def _init_(self,key):
+    def __init__(self,key):
         self.key = key
         self.left = None
         self.right = None
