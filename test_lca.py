@@ -17,3 +17,10 @@ def test_findPathRandomNode():
     path = []
     assert findPath(root,path,node2) == True
     assert path == [1,2,3]
+
+def test_findPathFalse():
+    root = Node(1)
+    node = Node(2)
+    path = []
+    assert findPath(root,path,node) == False
+    assert path == []
