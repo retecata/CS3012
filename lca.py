@@ -19,7 +19,7 @@ def findPath(root,path,node):
     path.append(root.key)
 
     #Check whether the Node is the root itself.
-    if root.key == node.key
+    if root.key == node.key:
         return True
 
     #Check the right and left sub-trees.
