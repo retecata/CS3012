@@ -23,8 +23,8 @@ def findPath(root,path,node):
         return True
 
     #Check the right and left sub-trees.
-    if((root.left!=None and findPath(root.left,path,node)) or (root.right!=None
-        and findPath(root.right,path,node))):
+    if ((root.left != None and findPath(root.left, path, node)) or
+            (root.right!= None and findPath(root.right, path,node))):
         return True
 
     #remove root from tree if not present in subtree
