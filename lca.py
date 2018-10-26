@@ -21,12 +21,10 @@ def findPath(root,x,path):
 def findLCA(root,node1,node2):
     if root is None:
         return False
-
     path1 = []
     path2 = []
     findPath(root,node1,path1)
     findPath(root,node2,path2)
-
     lca =0;
     for i in path1:
         for j in path2:
