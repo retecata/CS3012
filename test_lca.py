@@ -52,8 +52,6 @@ def test_findLCA():
     addChild(node2,node3)
     addChild(node2,node4)
 
-    path = []
-    # When a path exists.
     assert findLCA(node,node4,node3) == 3
 
 def test_findLCANonBinaryTree():
@@ -71,8 +69,26 @@ def test_findLCANonBinaryTree():
     addChild(node2,node5)
     addChild(node4,node6)
 
-    path = []
-    # When a path exists.
     assert findLCA(node,node1,node6) == 0
     assert findLCA(node,node3,node6) == 2
     assert findLCA(node,node,node6) == 0
+
+def test_findLCALoop():
+    node = Node(0)
+    node1 = Node(1)
+    node2 = Node(2)
+    node3 = Node(3)
+    node4 = Node(4)
+    node5 = Node(5)
+    node6 = Node(6)
+    addChild(node,node1)
+    addChild(node1,node5)
+    addChild(node1,node2)
+    addChild(node2,node3)
+    addChild(node3,node4)
+    addChild(node5,node6)
+    addChild(node6,node4)
+
+    assert findLCA(node,node1,node5) == 1
+    assert findLCA(node,node3,node6) == 1
+    assert findLCA(node,node4,node6) == 6 
