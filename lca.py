@@ -3,9 +3,9 @@
 class Node:
 
     # Constructor for new binary tree Node.
-    def __init__(self,key,children):
+    def __init__(self,key):
         self.key = key
-        self.children= []
+        self.children = []
 
 def addChild(node,child):
     node.children.append(child)
@@ -13,10 +13,16 @@ def addChild(node,child):
 def findPath(root,x,path):
     path.append(root)
     if x.key==root.key:
-        return
+        return True
 
     for i in root.children:
-        findPath(i,x,path)
+        if findPath(i,x,path):
+            return True
+
+    # Remove root from tree if not present in subtree.
+    path.pop()
+    return False        
+
 
 def findLCA(root,node1,node2):
     if root is None:
@@ -28,6 +34,7 @@ def findLCA(root,node1,node2):
     lca =0;
     for i in path1:
         for j in path2:
+            print("%d %d:",i.key,j.key)
             if i.key==j.key:
-                lca = i
-    return i.key
+                lca = i.key
+    return lca

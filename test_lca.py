@@ -2,51 +2,77 @@ import pytest
 import sys
 from lca import Node
 from lca import findPath
+from lca import addChild
 from lca import findLCA
 
 def test_findPathForRoot():
     node = Node(1)
-    path = []
-    assert findPath(node,path,node) == True
-
-def test_findPathRandomNode():
-    root = Node(1)
-    node = Node(2)
+    node1 = Node(2)
     node2 = Node(3)
-    root.left = node
-    node.left = node2
-    path = []
-    assert findPath(root,path,node2) == True
-    assert path == [1,2,3]
+    node3 = Node(4)
+    node4 = Node(5)
+    addChild(node,node1)
+    addChild(node,node2)
+    addChild(node2,node3)
 
-def test_findPathFalse():
-    root = Node(1)
-    node = Node(2)
     path = []
-    assert findPath(root,path,node) == False
-    assert path == []
+    # When a path exists.
+    assert findPath(node,node3,path) == True
+
+    # When there's no path.
+    path = []
+    assert findPath(node,node4,path) == False
+
+def test_findPathForRandomNode():
+    node = Node(1)
+    node1 = Node(2)
+    node2 = Node(3)
+    node3 = Node(4)
+    node4 = Node(5)
+    addChild(node,node1)
+    addChild(node,node2)
+    addChild(node2,node3)
+
+    path = []
+    # When a path exists.
+    assert findPath(node2,node3,path) == True
+
+    # When there's no path.
+    path = []
+    assert findPath(node1,node4,path) == False
 
 def test_findLCA():
-    root = Node(1)
+    node = Node(1)
     node1 = Node(2)
     node2 = Node(3)
-    root.left = node1
-    root.right = node2
-    assert findLCA(root,node1,node2) == root.key
+    node3 = Node(4)
+    node4 = Node(5)
+    addChild(node,node1)
+    addChild(node,node2)
+    addChild(node2,node3)
+    addChild(node2,node4)
 
-def test_findLCANone():
-    root = Node(1)
-    node1 = Node(2)
-    node2 = Node(3)
-    root.left = node1
-    assert findLCA(root,node1,node2) == -1
+    path = []
+    # When a path exists.
+    assert findLCA(node,node4,node3) == 3
 
-def test_findLCANotRoot():
-    root = Node(1)
-    lca = Node(2)
-    node1 = Node(3)
+def test_findLCANonBinaryTree():
+    node = Node(0)
+    node1 = Node(1)
     node2 = Node(2)
-    root.left = lca
-    lca.left = node1
-    lca.right = node2
-    assert findLCA(root,node1,node2) == lca.key
+    node3 = Node(3)
+    node4 = Node(4)
+    node5 = Node(5)
+    node6 = Node(6)
+    addChild(node,node1)
+    addChild(node,node2)
+    addChild(node2,node3)
+    addChild(node2,node4)
+    addChild(node2,node5)
+    addChild(node4,node6)
+
+    path = []
+    # When a path exists.
+    assert findLCA(node,node1,node6) == 0
+    assert findLCA(node,node3,node6) == 2
+    assert findLCA(node,node,node6) == 0
