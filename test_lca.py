@@ -3,7 +3,9 @@ import sys
 from lca import Node
 from lca import findPath
 from lca import addChild
+from lca import addParent
 from lca import findLCA
+from lca import findLCADAG
 
 def test_findPathForRoot():
     node = Node(1)
@@ -91,4 +93,26 @@ def test_findLCALoop():
 
     assert findLCA(node,node1,node5) == 1
     assert findLCA(node,node3,node6) == 1
-    assert findLCA(node,node4,node6) == 6 
+    assert findLCA(node,node4,node6) == 6
+    #assert findLCA(node,node3,node4) == 3 - this implementation does not work for dag
+
+def test_findLCAParents():
+    node = Node(0)
+    node1 = Node(1)
+    node2 = Node(2)
+    node3 = Node(3)
+    node4 = Node(4)
+    node5 = Node(5)
+    node6 = Node(6)
+    addParent(node6, node5)
+    addParent(node5, node1)
+    addParent(node4, node6)
+    addParent(node4, node3)
+    addParent(node3, node2)
+    addParent(node2, node1)
+    addParent(node1, node)
+
+    assert findLCADAG(node,node1,node5) == 1
+    assert findLCADAG(node,node3,node6) == 1
+    assert findLCADAG(node,node4,node6) == 6
+    assert findLCADAG(node,node3,node4) == 3

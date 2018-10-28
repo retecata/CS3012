@@ -6,9 +6,13 @@ class Node:
     def __init__(self,key):
         self.key = key
         self.children = []
+        self.parents = []
 
 def addChild(node,child):
     node.children.append(child)
+
+def addParent(node,parent):
+    node.parents.append(parent)
 
 def findPath(root,x,path):
     path.append(root)
@@ -21,8 +25,28 @@ def findPath(root,x,path):
 
     # Remove root from tree if not present in subtree.
     path.pop()
-    return False        
+    return False
 
+def findAncestors(root,node,ancestors):
+    ancestors.append(node.key)
+    if(node.key==root.key):
+        return
+
+    for i in node.parents:
+        findAncestors(root,i,ancestors)
+
+def findLCADAG(root,node1,node2):
+    if root is None:
+        return False
+
+    ancestors = []
+    ancestors2 = []
+    findAncestors(root,node1,ancestors)
+    findAncestors(root,node2,ancestors2)
+    for i in ancestors:
+        for j in ancestors2:
+            if i== j:
+                return i
 
 def findLCA(root,node1,node2):
     if root is None:
@@ -34,7 +58,7 @@ def findLCA(root,node1,node2):
     lca =0;
     for i in path1:
         for j in path2:
-            print("%d %d:",i.key,j.key)
+            #print("%d %d:",i.key,j.key)
             if i.key==j.key:
                 lca = i.key
     return lca
