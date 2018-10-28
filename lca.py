@@ -14,6 +14,7 @@ def addChild(node,child):
 def addParent(node,parent):
     node.parents.append(parent)
 
+# findPath computes the path from the root to a node.
 def findPath(root,x,path):
     path.append(root)
     if x.key==root.key:
@@ -27,6 +28,7 @@ def findPath(root,x,path):
     path.pop()
     return False
 
+# findAncestors computers all the ancestors of a given node.
 def findAncestors(root,node,ancestors):
     ancestors.append(node.key)
     if(node.key==root.key):
@@ -35,6 +37,7 @@ def findAncestors(root,node,ancestors):
     for i in node.parents:
         findAncestors(root,i,ancestors)
 
+# findLCADAG is the approach that works for both non-binary trees and DAGs.
 def findLCADAG(root,node1,node2):
     if root is None:
         return False
@@ -48,6 +51,7 @@ def findLCADAG(root,node1,node2):
             if i== j:
                 return i
 
+# findLCA is the approach that works for non-binary trees, but it doesn't work for any graph where a node has more than one parent.
 def findLCA(root,node1,node2):
     if root is None:
         return False
